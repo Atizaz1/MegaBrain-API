@@ -18,6 +18,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request)
     return $request->user();
 });
 
+/*
+|--------------------------------------------------------------------------
+| MegaBrain v1 API Routes
+|--------------------------------------------------------------------------
+|
+*/
+
 // States Routes
 
 Route::get('state', 'StateController@getStateList');
@@ -153,3 +160,71 @@ Route::group(
 });
 
 // END
+
+/*
+|--------------------------------------------------------------------------
+| MegaBrain v2 API Routes
+|--------------------------------------------------------------------------
+|
+*/
+
+    // Topics Routes
+
+    Route::get('topics', 'megabrainApiv2\TopicController@getTopicList');
+
+    Route::get('getTopicByCode/{code}', 'megabrainApiv2\TopicController@getTopicByCode');
+
+    Route::get('getTopicByName/{name}', 'megabrainApiv2\TopicController@getTopicByName');
+
+    Route::get('getTopicBySubjectAndAreaCodes/{subjectCode}/{areaCode}', 'megabrainApiv2\TopicController@getTopicBySubjectAndAreaCodes');
+
+    // END
+
+    // Subjects Route
+
+    Route::get('subjects', 'megabrainApiv2\SchoolSubjectController@getSchoolSubjectList');
+
+    Route::get('getSubjectByCode/{code}', 'megabrainApiv2\SchoolSubjectController@getSchoolSubjectByCode');
+    Route::get('getSubjectByName/{name}', 'megabrainApiv2\SchoolSubjectController@getSchoolSubjectByName');
+
+    Route::get('getAreasListBySubjectName/{name}', 'megabrainApiv2\SchoolSubjectController@getAreasListBySubjectName');
+
+    Route::get('getAreasListBySubjectCode/{code}', 'megabrainApiv2\SchoolSubjectController@getAreasListBySubjectCode');
+
+    // END
+
+    // Area Routes
+
+    Route::get('areas', 'megabrainApiv2\AreaController@getAreaList');
+
+    Route::get('getAreaByCode/{code}', 'megabrainApiv2\AreaController@getAreaByCode');
+
+    Route::get('getAreaByName/{name}', 'megabrainApiv2\AreaController@getAreaByName');
+
+    Route::get('getSubjectByAreaName/{name}','megabrainApiv2\AreaController@getSubjectByAreaName');
+
+    Route::get('getSubjectByAreaCode/{code}','megabrainApiv2\AreaController@getSubjectByAreaCode');
+
+    // END
+
+    // Image Routes
+
+    Route::get('images', 'megabrainApiv2\ImageController@getImagePathList');
+
+    Route::get('getImagePathByCode/{code}', 'megabrainApiv2\ImageController@getImagePathByCode');
+
+    Route::get('getImagePathByName/{name}', 'megabrainApiv2\ImageController@getImagePathByName');
+
+    Route::get('getImagePathSubjectWise/{subjectCode}/{areaCode}/{topicCode}','megabrainApiv2\ImageController@getImagePathSubjectWise');
+
+    // END
+
+    // News Routes
+
+    Route::get('news', 'megabrainApiv2\NewsController@getNewsList');
+
+    Route::get('getNewsById/{id}', 'megabrainApiv2\NewsController@getNewsById');
+
+    Route::get('getNOrderedNews',  'megabrainApiv2\NewsController@getNOrderedNews');        
+
+    // END

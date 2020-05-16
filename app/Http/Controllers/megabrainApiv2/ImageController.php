@@ -1,17 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\megabrainApiv2;
 
 use Illuminate\Http\Request;
 use App\Image;
+use App\Http\Controllers\Controller;
 
 class ImageController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
-
     public function getImagePathSubjectWise($subjectCode, $areaCode, $topicCode)
     {
     	if(!isset($subjectCode) || !isset($areaCode) || !isset($topicCode))
@@ -23,13 +19,15 @@ class ImageController extends Controller
 
     	$curr_image = $image->getImagePathsSubjectWise($subjectCode, $areaCode, $topicCode);
 
+        $final_images = [];
+
     	if(@count($curr_image) > 0)
     	{
-    		$links = $this->copyAndGenerateLinks($curr_image);
+            $final_images = $this->copyAndGenerateLinks($curr_image);
 
-    		if(@count($links) > 0)
+    		if(@count($final_images) > 0)
     		{
-    			return response()->json($links, 200);
+    			return response()->json($final_images, 200);
     		}
     		else
     		{
@@ -54,9 +52,9 @@ class ImageController extends Controller
     {
     	$imageLinks = [];
 
-    	$originalImagesDirectoryPath    = "C:/Users/Atizaz/Desktop/API/images";
+    	$originalImagesDirectoryPath    = "d:\web\localuser\megabrain-enem\www\images";
 
-    	$destinationImagesDirectoryPath = "C:/Users/Atizaz/Desktop/API/megabrainapi/public";
+    	$destinationImagesDirectoryPath = "d:\web\localuser\megabrain-enem\www\API";
 
     	if(is_a($image, 'Illuminate\Database\Eloquent\Collection'))
     	{
@@ -65,7 +63,7 @@ class ImageController extends Controller
     			if(file_exists($originalImagesDirectoryPath.'/'.$image[$i]->image_name) == 1)
     			{
     				copy($originalImagesDirectoryPath.'/'.$image[$i]->image_name, $destinationImagesDirectoryPath.'/'.$image[$i]->image_name);
-    				$imageLinks[] = asset($image[$i]->image_name);	
+    				$imageLinks[] = $image[$i];	
     			}	
     		}
     		if(@count($imageLinks) > 0)
@@ -84,6 +82,7 @@ class ImageController extends Controller
     	}
     }
 
+    
     public function getImagePathList()
     {
         $image = new Image;
