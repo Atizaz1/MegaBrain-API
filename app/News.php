@@ -22,8 +22,8 @@ class News extends Model
     	return News::find($id);
     }
 
-    public function getLastNNews($numberOfNews)
+    public function getLastNNews()
     {
-    	return News::orderBy('news_priority', 'asc')->take($numberOfNews)->get();
+    	return News::orderBy('news_priority', 'asc')->get();
     }
 }

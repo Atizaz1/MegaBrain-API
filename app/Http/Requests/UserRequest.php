@@ -48,6 +48,12 @@ class UserRequest extends FormRequest
 
             return $validation;
         }
+        elseif($current_path === url('api/storeFreeUser'))
+        {
+            $validation = $this->getFreeUserValidationList();
+
+            return $validation;
+        }
 
         return $validation;
     }
@@ -56,7 +62,6 @@ class UserRequest extends FormRequest
     {
       return
       [
-
         'nickname'                   => 'required|min:3|max:50|string',
 
         'fullname'                   => 'required|min:3|max:50|string',
@@ -78,6 +83,25 @@ class UserRequest extends FormRequest
         'state'                      => 'required|string|max:50',
 
         'city'                       => 'required|string|max:50',
+
+        'verifyToken'                => 'required|string|max:8',
+
+        'isVerify'                   => 'required|numeric|max:1',
+      ];
+    }
+
+    public function getFreeUserValidationList()
+    {
+      return
+      [
+
+        'fullname'                   => 'required|min:3|max:50|string',
+
+        'email'                      => 'email|required|max:50|unique:App\FreeUser',
+
+        'borndate'                   => 'required|date',
+
+        'sex'                        => 'required|in:Male,Female',
 
         'verifyToken'                => 'required|string|max:8',
 

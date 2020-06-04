@@ -228,3 +228,22 @@ Route::group(
     Route::get('getNOrderedNews',  'megabrainApiv2\NewsController@getNOrderedNews');        
 
     // END
+
+    // FreeUser Routes
+
+    Route::post('storeFreeUser', 'megabrainApiv2\FreeUsersController@storeFreeUser');
+
+    Route::get('checkFreeUser/{email}',  'megabrainApiv2\FreeUsersController@checkFreeUser'); 
+    Route::post('verifyFreeUserToken',  'megabrainApiv2\FreeUsersController@verifyFreeUserToken');        
+
+    // END
+
+    // Message Routes
+
+    Route::get('message', 'megabrainApiv2\MessageController@getMessageList');
+
+    Route::get('getMessageById/{id}', 'megabrainApiv2\MessageController@getMessageById');
+
+    Route::get('getTopPriorityMessage',  'megabrainApiv2\MessageController@getTopPriorityMessage');        
+
+    // END
