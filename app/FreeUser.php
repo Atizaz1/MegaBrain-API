@@ -37,7 +37,11 @@ class FreeUser extends Model
 
             $user->register_date  = date('Y-m-d',strtotime(Date('Y-m-d')));
 
-            $user->sex            = $object['sex'];
+            // $user->sex            = $object['sex'];
+
+            $user->partner_code   = $object['partner_code'];
+
+            $user->app_code       = $object['app_code'];
 
             $user->verifyToken    = $object['verifyToken'];
 

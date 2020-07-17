@@ -74,7 +74,9 @@ class UserRequest extends FormRequest
 
         'borndate'                   => 'required|date',
 
-        'sex'                        => 'required|in:Male,Female',
+        // 'sex'                        => 'required|in:Male,Female',
+
+        'partner_code'               => 'nullable|alpha_num',
 
         'photo'                      => 'nullable|string',
 
@@ -101,7 +103,9 @@ class UserRequest extends FormRequest
 
         'borndate'                   => 'required|date',
 
-        'sex'                        => 'required|in:Male,Female',
+        // 'sex'                        => 'required|in:Male,Female',
+
+        'partner_code'               => 'nullable|alpha_num',
 
         'verifyToken'                => 'required|string|max:8',
 
@@ -129,7 +133,9 @@ class UserRequest extends FormRequest
 
         'borndate'                   => 'required|date',
 
-        'sex'                        => 'required|in:Male,Female',
+        // 'sex'                        => 'required|in:Male,Female',
+
+        'partner_code'               => 'nullable|alpha_num',
 
         'photo'                      => 'nullable|string',
 

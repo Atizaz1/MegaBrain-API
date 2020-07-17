@@ -90,7 +90,11 @@ class User extends Authenticatable implements JWTSubject
 
             $user->register_date  = date('Y-m-d',strtotime(Date('Y-m-d')));
 
-            $user->sex            = $object['sex'];
+            // $user->sex            = $object['sex'];
+
+            $user->partner_code   = $object['partner_code'];
+
+            $user->app_code       = $object['app_code'];
 
             $user->photo          = $this->generateImageFromEncoding($object['photo']);
 
@@ -127,7 +131,9 @@ class User extends Authenticatable implements JWTSubject
                 
                 $user->borndate       = date('Y-m-d',strtotime($object['borndate']));
 
-                $user->sex            = $object['sex'];
+                // $user->sex            = $object['sex'];
+
+                $user->partner_code   = $object['partner_code'];
 
                 $user->course         = $object['course'];
 
@@ -240,6 +246,8 @@ class User extends Authenticatable implements JWTSubject
             $user->photo          = $this->generateImageFromEncoding('null');
 
             $user->facebookId     = $object['id'];
+
+            $user->app_code       = $object['app_code'];
 
             $user->IsSocial       = 1;
 
