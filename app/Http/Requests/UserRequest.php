@@ -54,6 +54,12 @@ class UserRequest extends FormRequest
 
             return $validation;
         }
+        elseif($current_path === url('api/storeFreeUser2'))
+        {
+            $validation = $this->getFreeUserValidationList2();
+
+            return $validation;
+        }
 
         return $validation;
     }
@@ -102,6 +108,32 @@ class UserRequest extends FormRequest
         'email'                      => 'email|required|max:50|unique:App\FreeUser',
 
         'borndate'                   => 'required|date',
+
+        // 'sex'                        => 'required|in:Male,Female',
+
+        'partner_code'               => 'nullable|alpha_num',
+
+        'verifyToken'                => 'required|string|max:8',
+
+        'isVerify'                   => 'required|numeric|max:1',
+
+      ];
+    }
+
+    public function getFreeUserValidationList2()
+    {
+      return
+      [
+
+        'fullname'                   => 'required|min:3|max:50|string',
+
+        'email'                      => 'email|required|max:50|unique:users',
+
+        // 'borndate'                   => 'required|date',
+
+        'password'                   => 'required',
+
+        'confirm_password'           => 'required|same:password',
 
         // 'sex'                        => 'required|in:Male,Female',
 

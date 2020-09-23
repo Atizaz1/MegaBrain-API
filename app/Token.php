@@ -65,6 +65,8 @@ class Token extends Model
 
         $curr_user = $user->getUserById($object['id']);
 
+        dd($curr_user);
+
         if(isset($curr_user->userId))
         {
             if($curr_user->verifytoken == $object['token'])

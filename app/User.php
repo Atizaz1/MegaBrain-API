@@ -115,6 +115,37 @@ class User extends Authenticatable implements JWTSubject
         });
     }
 
+    public function storeUser2($object)
+    {
+       return  DB::transaction(function () use ($object)  
+       {
+            $user                 = new User;
+
+            $user->fullname       = $object['fullname'];
+
+            $user->email          = $object['email'];
+            
+            $user->password       = Hash::make($object['password']);
+
+            $user->register_date  = date('Y-m-d',strtotime(Date('Y-m-d')));
+
+            // $user->sex            = $object['sex'];
+
+            $user->partner_code   = $object['partner_code'];
+
+            $user->app_code       = $object['app_code'];
+
+            $user->verifyToken    = $object['verifyToken'];
+
+            $user->isVerify       = $object['isVerify'];
+
+            $user->save();
+
+            return with($user);
+
+        });
+    }
+
     public function updateUser($object)
     {
        return  DB::transaction(function () use ($object)  

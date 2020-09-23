@@ -23,7 +23,7 @@ class JWTController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login','register','verifyUserToken','verifyPasswordResetToken','sendPasswordResetToken','resetPassword','socialRegister']]);
+        $this->middleware('auth:api', ['except' => ['login','register','verifyUserToken','verifyPasswordResetToken','sendPasswordResetToken','resetPassword','socialRegister', 'storeFreeUser2']]);
     }
 
     /**
@@ -214,5 +214,23 @@ class JWTController extends Controller
             return response()->json(['error'=>'User Not Found'], 404);
         }
 
+    }
+
+    public function storeFreeUser2(UserRequest $request)
+    {
+        $form_collect = $request->input();
+
+        $user = new User;
+
+        $curr_user = $user->storeUser2($form_collect);
+
+        if(isset($curr_user->userId))
+        {
+            return response()->json(['success'=>'Free User Information has been saves successfully','user'=>$curr_user], 200);
+        }
+        else
+        {
+            return response()->json(['errors'=>'Something Went Wrong. Please Try Again.'], 500);
+        }
     }
 }

@@ -146,6 +146,10 @@ Route::group(
 
     Route::get('getImagePathSubjectWise/{subjectCode}/{areaCode}/{topicCode}','ImageController@getImagePathSubjectWise');
 
+    // Extra 
+    Route::get('getImagePathSubjectWise/{subjectCode}/{areaCode}/{topicCode}','ImageController2@getImagePathSubjectWise');
+    // END
+
     // END
 
     // News Routes
@@ -155,6 +159,16 @@ Route::group(
     Route::get('getNewsById/{id}', 'NewsController@getNewsById');
 
     Route::get('getNOrderedNews',  'NewsController@getNOrderedNews');        
+
+    // END
+
+    // Tips Routes
+
+    Route::get('tips', 'TipsController@getTipsList');
+
+    Route::get('getTipsById/{id}', 'TipsController@getTipsById');
+
+    Route::get('getNOrderedTips',  'TipsController@getNOrderedTips');        
 
     // END
 });
@@ -167,6 +181,12 @@ Route::group(
 |--------------------------------------------------------------------------
 |
 */
+
+    // User Registration Route
+
+    Route::post('storeFreeUser2', 'JWTController@storeFreeUser2');
+
+    // END
 
     // Topics Routes
 
@@ -245,5 +265,25 @@ Route::group(
     Route::get('getMessageById/{id}', 'megabrainApiv2\MessageController@getMessageById');
 
     Route::get('getTopPriorityMessage',  'megabrainApiv2\MessageController@getTopPriorityMessage');        
+
+    // END
+
+    // Tips Routes
+
+    Route::get('tips', 'megabrainApiv2\TipsController@getTipsList');
+
+    Route::get('getTipsById/{id}', 'megabrainApiv2\TipsController@getTipsById');
+
+    Route::get('getNOrderedTips',  'megabrainApiv2\TipsController@getNOrderedTips');        
+
+    // END
+
+    // User Purchase Routes
+
+    Route::post('verifyPurchase', 'UserPurchaseController@verifyPurchase');
+
+    Route::get('getVerifiedPurchases/{email}', 'UserPurchaseController@getPurchasedSubjectsByUser');
+
+    Route::get('updatePurchaseDate/{email}', 'UserPurchaseController@lockContent');
 
     // END
