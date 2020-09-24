@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use DB;
+use Carbon\Carbon;
 
 class UserPurchase extends Model
 {
@@ -25,25 +26,25 @@ class UserPurchase extends Model
 
     public function getConfirmedPurchaseByEmail($email)
     {
-    	return UserPurchase::where(['email' => $email, 'purchase_activated' => '1'])->first();
+    	return UserPurchase::where('email', $email)->where('purchase_limit_date' , '>=', Carbon::today()->toDateString())->first();
     }
 
-    public function updateContentDate($email)
-    {
-    	return DB::transaction(function () use ($email)  
-       {
-            $userPurchase             = $this->getUserPurchaseByEmail($email);
+    // public function updateContentDate($email)
+    // {
+    // 	return DB::transaction(function () use ($email)  
+    //    {
+    //         $userPurchase             = $this->getUserPurchaseByEmail($email);
 
-            if(isset($userPurchase->Id))
-            {
-                $userPurchase->purchase_activated  = '0';
+    //         if(isset($userPurchase->Id))
+    //         {
+    //             $userPurchase->purchase_activated  = '0';
 
-                $userPurchase->update();
+    //             $userPurchase->update();
 
-                return with($userPurchase);
-            }
-        });
-    }
+    //             return with($userPurchase);
+    //         }
+    //     });
+    // }
 
     public function updateUserPurchaseById($object)
     {

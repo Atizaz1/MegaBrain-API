@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\UserPurchase;
 use App\Http\Requests\UserPurchaseRequest;
+use Carbon\Carbon;
 
 class UserPurchaseController extends Controller
 {
@@ -30,21 +31,21 @@ class UserPurchaseController extends Controller
     	}
     }
 
-    public function lockContent($email)
-    {
-    	$purchase = $this->userPurchase->getUserPurchaseByEmail($email);
+    // public function lockContent($email)
+    // {
+    // 	$purchase = $this->userPurchase->getUserPurchaseByEmail($email);
 
-    	if(isset($purchase->Id))
-    	{
-    		$curr_purchase = $this->userPurchase->updateContentDate($email);
-    		$subjectList = explode(";", $curr_purchase->ss_to_activate);
-    		return response()->json(['subjects' => $subjectList, 'expiryDate'=>$curr_purchase->purchase_limit_date], 200);
-    	}
-    	else
-    	{
-    		return response()->json(['error' => 'No Purchase Found'], 404);
-    	}
-    }
+    // 	if(isset($purchase->Id))
+    // 	{
+    // 		$curr_purchase = $this->userPurchase->updateContentDate($email);
+    // 		$subjectList = explode(";", $curr_purchase->ss_to_activate);
+    // 		return response()->json(['subjects' => $subjectList, 'expiryDate'=>$curr_purchase->purchase_limit_date], 200);
+    // 	}
+    // 	else
+    // 	{
+    // 		return response()->json(['error' => 'No Purchase Found'], 404);
+    // 	}
+    // }
 
     public function verifyPurchase(UserPurchaseRequest $request)
     {
@@ -54,7 +55,11 @@ class UserPurchaseController extends Controller
 
     	if(isset($purchase->Id))
     	{
-    		if($purchase->purchase_activation_code === $request->code)
+    		if($purchase->purchase_limit_date < Carbon::today()->toDateString())
+    		{
+    			return response()->json(['error' => 'Activation Code has been used or expired.'], 400);
+    		}
+    		elseif($purchase->purchase_activation_code === $request->code)
     		{
     			if($purchase->purchase_activated == '0' || $purchase->purchase_activated == 0)
     			{

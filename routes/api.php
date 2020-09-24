@@ -284,6 +284,6 @@ Route::group(
 
     Route::get('getVerifiedPurchases/{email}', 'UserPurchaseController@getPurchasedSubjectsByUser');
 
-    Route::get('updatePurchaseDate/{email}', 'UserPurchaseController@lockContent');
+    // Route::get('updatePurchaseDate/{email}', 'UserPurchaseController@lockContent');
 
     // END
