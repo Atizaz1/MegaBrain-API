@@ -286,4 +286,12 @@ Route::group(
 
     // Route::get('updatePurchaseDate/{email}', 'UserPurchaseController@lockContent');
 
+    Route::get('getPurchasedEquipment/{email}', 'UserPurchaseController@getPurchasedEquipmentByUser');
+
+    Route::get('updatePurchasedEquipment/{email}/{equipment}', 'UserPurchaseController@updatePurchasedEquipmentByUser');
+
+    Route::get('generateAccessRecoveryToken/{email}', 'UserPurchaseController@generateAccessRecoveryTokenByUser');
+
+    Route::get('verifyAccessRecoveryToken/{email}/{token}', 'UserPurchaseController@verifyAccessRecoveryTokenByUser');
+
     // END

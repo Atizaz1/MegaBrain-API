@@ -46,6 +46,40 @@ class UserPurchase extends Model
     //     });
     // }
 
+    public function updatePurchasedEquipmentByUser($id, $equipment)
+    {
+    	return DB::transaction(function () use ($id, $equipment)  
+       {
+            $userPurchase             = $this->getUserPurchaseById($id);
+
+            if(isset($userPurchase->Id))
+            {
+                $userPurchase->purchase_equipment  = $equipment;
+
+                $userPurchase->update();
+
+                return with($userPurchase);
+            }
+        });
+    }
+
+    public function generateAccessRecoveryTokenByUser($id, $token)
+    {
+    	return DB::transaction(function () use ($id, $token)  
+       {
+            $userPurchase             = $this->getUserPurchaseById($id);
+
+            if(isset($userPurchase->Id))
+            {
+                $userPurchase->equipment_recover_verifytoken  = $token;
+
+                $userPurchase->update();
+
+                return with($userPurchase);
+            }
+        });
+    }
+
     public function updateUserPurchaseById($object)
     {
        return DB::transaction(function () use ($object)  

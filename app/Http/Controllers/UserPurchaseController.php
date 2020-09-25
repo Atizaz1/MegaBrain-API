@@ -31,6 +31,69 @@ class UserPurchaseController extends Controller
     	}
     }
 
+    public function getPurchasedEquipmentByUser($email)
+    {
+    	$userPurchase = $this->userPurchase->getConfirmedPurchaseByEmail($email);
+    	if(isset($userPurchase->Id))
+    	{
+    		return response()->json(['equipment' => $userPurchase->purchase_equipment], 200);
+    	}
+    	else
+    	{
+    		return response()->json(['error' => 'No User Purchase Found'], 404);
+    	}
+    }
+
+    public function generateAccessRecoveryTokenByUser($email)
+    {
+        $token = rand(1000,9999); 
+
+        $userPurchase = $this->userPurchase->getConfirmedPurchaseByEmail($email);
+    	if(isset($userPurchase->Id))
+    	{
+    		$userPurchase = $this->userPurchase->generateAccessRecoveryTokenByUser($userPurchase->Id, $token);
+    		return response()->json(['token' => $userPurchase->equipment_recover_verifytoken], 200);
+    	}
+    	else
+    	{
+    		return response()->json(['error' => 'No User Purchase Found'], 404);
+    	}
+    }
+
+    public function verifyAccessRecoveryTokenByUser($email, $token)
+    {
+        $userPurchase = $this->userPurchase->getConfirmedPurchaseByEmail($email);
+    	if(isset($userPurchase->Id))
+    	{
+    		if($userPurchase->equipment_recover_verifytoken == $token)
+    		{
+    			return response()->json(['success' => 'Access Recovery Token Verified'], 200);
+    		}
+    		else
+    		{
+    			return response()->json(['error' => 'Invalid Access Recovery Token'], 400);
+    		}
+    	}
+    	else
+    	{
+    		return response()->json(['error' => 'No User Purchase Found'], 404);
+    	}
+    }
+
+    public function updatePurchasedEquipmentByUser($email, $equipment)
+    {
+    	$userPurchase = $this->userPurchase->getConfirmedPurchaseByEmail($email);
+    	if(isset($userPurchase->Id))
+    	{
+    		$userPurchase = $this->userPurchase->updatePurchasedEquipmentByUser($userPurchase->Id, $equipment);
+    		return response()->json(['equipment' => $userPurchase->purchase_equipment], 200);
+    	}
+    	else
+    	{
+    		return response()->json(['error' => 'No User Purchase Found'], 404);
+    	}
+    }
+
     // public function lockContent($email)
     // {
     // 	$purchase = $this->userPurchase->getUserPurchaseByEmail($email);
