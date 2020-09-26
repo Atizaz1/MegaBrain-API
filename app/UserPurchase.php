@@ -26,7 +26,7 @@ class UserPurchase extends Model
 
     public function getConfirmedPurchaseByEmail($email)
     {
-    	return UserPurchase::where('email', $email)->where('purchase_limit_date' , '>=', Carbon::today()->toDateString())->first();
+    	return UserPurchase::where('email', $email)->where('purchase_limit_date' , '>=', Carbon::today()->toDateString())->where('purchase_activated','1')->first();
     }
 
     // public function updateContentDate($email)
