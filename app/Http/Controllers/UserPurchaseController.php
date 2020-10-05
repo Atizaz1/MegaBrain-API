@@ -130,7 +130,10 @@ class UserPurchaseController extends Controller
     					$form_collect['purchase_activated'] = 1;
     					$tempUserPurchase = $this->userPurchase->updateUserPurchaseById($form_collect);
     					$subjectList = explode(";", $tempUserPurchase->ss_to_activate);
-    					return response()->json(['subjects' => $subjectList, 'expiryDate'=>$tempUserPurchase->purchase_limit_date], 200);
+    					return response()->json(['subjects' => $subjectList, 
+                        'expiryDate'=>$tempUserPurchase->purchase_limit_date,
+                        'activationDate'=>Carbon::parse($tempUserPurchase->purchase_activation_date)->format('Y-m-d'),
+                        'purchaseDate'=>$tempUserPurchase->purchase_date], 200);
     			}
     			else
     			{
