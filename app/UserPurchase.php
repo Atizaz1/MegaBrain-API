@@ -96,6 +96,11 @@ class UserPurchase extends Model
                 
                 $userPurchase->purchase_equipment       = $object['purchase_equipment'];
 
+                if(isset($object['partner_code']))
+                {
+                    $userPurchase->partner_code       = $object['partner_code'];
+                }
+
                 $userPurchase->update();
 
                 return with($userPurchase);

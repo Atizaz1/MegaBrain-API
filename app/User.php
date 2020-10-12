@@ -185,6 +185,23 @@ class User extends Authenticatable implements JWTSubject
             }
         });
     }
+
+    public function updateUserPartnerCode($email, $partnerCode)
+    {
+        return  DB::transaction(function () use ($email, $partnerCode)  
+       {
+            $user                     = $this->getUserByEmail($email);
+
+            if(isset($user->userId))
+            {
+                $user->partner_code   = $partnerCode;
+
+                $user->update();
+
+                return with($user);
+            }
+        });
+    }
 	
     public function generateImageFromEncoding($encodedImage)
     {

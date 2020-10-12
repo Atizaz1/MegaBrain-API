@@ -294,4 +294,6 @@ Route::group(
 
     Route::get('verifyAccessRecoveryToken/{email}/{token}', 'UserPurchaseController@verifyAccessRecoveryTokenByUser');
 
+    Route::get('updateUserPartnerCode/{email}/{partnerCode}', 'JWTController@updateUserPartnerCode');
+
     // END

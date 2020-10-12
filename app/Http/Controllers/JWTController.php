@@ -132,6 +132,22 @@ class JWTController extends Controller
         }
     }
 
+    public function updateUserPartnerCode($email, $partnerCode)
+    {
+        $user = new User;
+
+        $curr_user = $user->updateUserPartnerCode($email, $partnerCode);
+
+        if(isset($curr_user->userId))
+        {
+            return response()->json(['success'=>'Partner Code Has been Updated Successfully','user'=>$curr_user], 200);
+        }
+        else
+        {
+            return response()->json(['errors'=>'Something Went Wrong. Please Try Again.'], 500);
+        }
+    }
+
     /**
      * Log the user out (Invalidate the token)
      *
